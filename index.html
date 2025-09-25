@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Conditions Demo</title>
+</head>
+<body>
+  <h2>Conditional Logic Checker</h2>
+
+  <form id="conditionForm">
+    <label for="number">Enter a number:</label><br>
+    <input type="number" id="number" required><br><br>
+
+    <label for="role">Enter your role (admin/editor/viewer):</label><br>
+    <input type="text" id="role" required><br><br>
+
+    <label for="loggedIn">Are you logged in?</label><br>
+    <select id="loggedIn">
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select><br><br>
+
+    <button type="submit">Check Conditions</button>
+  </form>
+
+  <h3>Results:</h3>
+  <pre id="output"></pre>
+
+  <script>
+    document.getElementById('conditionForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const number = parseInt(document.getElementById('number').value);
+      const userRole = document.getElementById('role').value.toLowerCase();
+      const isLoggedIn = document.getElementById('loggedIn').value === 'yes';
+
+      let output = '';
+
+      // 1. Simple if
+      if (number > 10) {
+        output += "The number is greater than 10.\n";
+      }
+
+      // 2. if...else
+      if (number % 2 === 0) {
+        output += "The number is even.\n";
+      } else {
+        output += "The number is odd.\n";
+      }
+
+      // 3. if...else if...else
+      if (number < 0) {
+        output += "Negative number.\n";
+      } else if (number === 0) {
+        output += "Zero.\n";
+      } else {
+        output += "Positive number.\n";
+      }
+
+      // 4. switch
+      switch (userRole) {
+        case "admin":
+          output += "Welcome, admin!\n";
+          break;
+        case "editor":
+          output += "Welcome, editor!\n";
+          break;
+        case "viewer":
+          output += "Welcome, viewer!\n";
+          break;
+        default:
+          output += "Role not recognized.\n";
+      }
+
+      // 5. Ternary operator
+      let access = isLoggedIn ? "Access granted" : "Access denied";
+      output += access + "\n";
+
+      // 6. Logical operators
+      if (isLoggedIn && userRole === "admin") {
+        output += "Admin has full access.\n";
+      }
+
+      if (isLoggedIn || userRole === "guest") {
+        output += "User has limited or full access.\n";
+      }
+
+      if (!isLoggedIn) {
+        output += "User must log in.\n";
+      } else {
+        output += "User is already logged in.\n";
+      }
+
+      // Show output
+      document.getElementById('output').textContent = output;
+    });
+  </script>
+</body>
+</html>
